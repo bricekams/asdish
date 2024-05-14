@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "456464623815",
+    "project_id": "asdish-app",
+    "storage_bucket": "asdish-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456464623815:android:32a1e905d7b3ca0b9f36e2",
+        "android_client_info": {
+          "package_name": "com.example.asdish"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6LvyneHNvzqWVik7hA-vQ9u8QDUIKA6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
