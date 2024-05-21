@@ -1,38 +1,37 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 class ProductCard extends StatelessWidget {
   final double? width;
   final double? height;
+
   const ProductCard({super.key, this.width, this.height});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: BorderRadius.circular(5),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black54,
-            blurRadius: 1,
-            blurStyle: BlurStyle.outer,
-          )
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          GestureDetector(
-            onTap: () {
-              context.push("/product");
-            },
-            child: Container(
+    return GestureDetector(
+      onTap: () {
+        context.push("/product");
+      },
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: BorderRadius.circular(5),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black54,
+              blurRadius: 1,
+              blurStyle: BlurStyle.outer,
+            )
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
               width: width,
               height: 90,
               decoration: const BoxDecoration(
@@ -50,61 +49,54 @@ class ProductCard extends StatelessWidget {
                 children: [
                   Align(
                     alignment: const Alignment(0.9, -0.8),
-                    child: Container(
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black54,
-                            blurRadius: 1,
-                            blurStyle: BlurStyle.outer,
-                          )
-                        ],
-                        shape: BoxShape.circle,
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                      ),
-                      child: const Icon(
-                        Icons.favorite_outline,
-                        size: 15,
+                    child: SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: IconButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                            Theme.of(context).colorScheme.onPrimary,
+                          ),
+                        ),
+                        padding: EdgeInsets.zero,
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.favorite_outline,
+                          size: 15,
+                        ),
                       ),
                     ),
                   ),
                   Align(
                     alignment: const Alignment(0.9, 0.8),
-                    child: Container(
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black54,
-                            blurRadius: 1,
-                            blurStyle: BlurStyle.outer,
-                          )
-                        ],
-                        shape: BoxShape.circle,
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                      ),
-                      child: const Icon(
-                        Icons.add_shopping_cart,
-                        size: 15,
+                    child: SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: IconButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                            Theme.of(context).colorScheme.onPrimary,
+                          ),
+                        ),
+                        padding: EdgeInsets.zero,
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.add_shopping_cart,
+                          size: 15,
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GestureDetector(
-                  onTap: (){
-                    context.push("/product");
-                  },
-                  child: const Text(
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
                     "Riz Senegalais",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -112,52 +104,52 @@ class ProductCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-                Text(
-                  "Sahel",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey.shade800,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "4.5",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey.shade800,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(width: 2),
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow.shade600,
-                          size: 15,
-                        ),
-                      ],
+                  Text(
+                    "Sahel",
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey.shade800,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Text(
-                      "2000F",
-                      style: TextStyle(
-                        color: Colors.grey.shade800,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
+                  ),
+                  const SizedBox(height: 5),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "4.5",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey.shade800,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(width: 2),
+                          Icon(
+                            Icons.star,
+                            color: Colors.yellow.shade600,
+                            size: 15,
+                          ),
+                        ],
                       ),
-                    )
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
+                      Text(
+                        "2000F",
+                        style: TextStyle(
+                          color: Colors.grey.shade800,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

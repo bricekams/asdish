@@ -1,4 +1,7 @@
 import 'package:asdish/data/models/product.dart';
+import 'package:asdish/ui/screens/auth/otp.dart';
+import 'package:asdish/ui/screens/auth/signin.dart';
+import 'package:asdish/ui/screens/auth/signup.dart';
 import 'package:asdish/ui/screens/cart.dart';
 import 'package:asdish/ui/screens/home.dart';
 import 'package:asdish/ui/screens/notifications.dart';
@@ -40,11 +43,29 @@ final GoRouter appRouter = GoRouter(
       routes: generateRoutes(shellScreens),
     ),
     GoRoute(
-     path: "/product",
-      builder: (context,state) {
-       // Product? product = state.extra as Product?;
-       return const ProductScreen();
-      }
+      path: "/product",
+      builder: (context, state) {
+        // Product? product = state.extra as Product?;
+        return const ProductScreen();
+      },
+    ),
+    GoRoute(
+      path: "/auth",
+      redirect: (context, state) => "/auth/signin",
+      routes: [
+        GoRoute(
+          path: "signin",
+          builder: (context, state) => const SignInScreen(),
+        ),
+        GoRoute(
+          path: "signup",
+          builder: (context, state) => const SignUpScreen(),
+        ),
+        GoRoute(
+          path: "otp",
+          builder: (context, state) => const OTPScreen(),
+        ),
+      ],
     )
   ],
 );

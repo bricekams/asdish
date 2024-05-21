@@ -3,6 +3,7 @@ import 'package:asdish/ui/widgets/home_appbar.dart';
 import 'package:asdish/ui/widgets/product_card.dart';
 import 'package:asdish/ui/widgets/restaurant_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,9 +17,10 @@ class HomeScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              const HomeCarouselSlider(),
+              const Center(child: HomeCarouselSlider()),
               const SizedBox(height: 20),
               Row(
                 mainAxisSize: MainAxisSize.max,
@@ -50,6 +52,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
+
+
               IntrinsicHeight(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -89,6 +93,8 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
+
+
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -159,6 +165,8 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
+
+
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -190,6 +198,34 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: AlignedGridView.count(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 4,
+                  crossAxisSpacing: 4,
+                  itemCount: 12,
+                  itemBuilder: (context, index) {
+                    return index != 11
+                        ? ProductCard()
+                        : TextButton(
+                            style: ButtonStyle(
+                              shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
+                              backgroundColor: MaterialStateProperty.resolveWith(
+                                (states) {
+                                  return Theme.of(context).colorScheme.primary;
+                                },
+                              ),
+                              foregroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.onPrimary),
+                            ),
+                            onPressed: () {},
+                            child: const Text("See more..."),
+                          );
+                  },
+                ),
+              )
             ],
           ),
         ),
