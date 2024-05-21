@@ -24,6 +24,7 @@ dependencies:
   intl_phone_field: ^3.2.0
   cart_stepper: ^4.3.0
   firebase_auth: ^4.19.5
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

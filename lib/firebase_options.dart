@@ -63,6 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '456464623815',
     projectId: 'asdish-app',
     storageBucket: 'asdish-app.appspot.com',
+    androidClientId: '456464623815-embuaeprotoi8nd7hq4aojalqaq5bnge.apps.googleusercontent.com',
+    iosClientId: '456464623815-eeasha7rg7rvn2mdcuhoftn53i4l5vbl.apps.googleusercontent.com',
     iosBundleId: 'com.example.asdish',
   );
 
@@ -72,6 +74,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '456464623815',
     projectId: 'asdish-app',
     storageBucket: 'asdish-app.appspot.com',
+    androidClientId: '456464623815-embuaeprotoi8nd7hq4aojalqaq5bnge.apps.googleusercontent.com',
+    iosClientId: '456464623815-eeasha7rg7rvn2mdcuhoftn53i4l5vbl.apps.googleusercontent.com',
     iosBundleId: 'com.example.asdish',
   );
 
@@ -83,4 +87,5 @@ class DefaultFirebaseOptions {
     authDomain: 'asdish-app.firebaseapp.com',
     storageBucket: 'asdish-app.appspot.com',
   );
+
 }

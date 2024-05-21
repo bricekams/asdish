@@ -12,7 +12,20 @@
           "package_name": "com.example.asdish"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "456464623815-embuaeprotoi8nd7hq4aojalqaq5bnge.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.asdish",
+            "certificate_hash": "427730686b68e3f58010f23a9928d13b153f059b"
+          }
+        },
+        {
+          "client_id": "456464623815-u95l5v519mqgrnjggd4rrloc6elrn38s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA6LvyneHNvzqWVik7hA-vQ9u8QDUIKA6w"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456464623815-u95l5v519mqgrnjggd4rrloc6elrn38s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "456464623815-eeasha7rg7rvn2mdcuhoftn53i4l5vbl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.asdish"
+              }
+            }
+          ]
         }
       }
     }
