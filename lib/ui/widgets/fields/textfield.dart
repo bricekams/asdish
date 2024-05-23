@@ -17,6 +17,8 @@ class CustomTextField extends StatelessWidget {
   final AutovalidateMode? autoValidateMode;
   final int? maxLength;
   final TextInputType? keyboardType;
+  final double? width;
+  final double? height;
 
   const CustomTextField(
       {super.key,
@@ -35,7 +37,9 @@ class CustomTextField extends StatelessWidget {
       this.obscureText,
       this.autoValidateMode,
       this.maxLength,
-      this.keyboardType});
+      this.keyboardType,
+      this.width,
+      this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +61,15 @@ class CustomTextField extends StatelessWidget {
       ),
       decoration: InputDecoration(
         label: label,
-        border: OutlineInputBorder(
-
-        ),
+        constraints: width != null && height != null
+            ? BoxConstraints.loose(Size(width!, height!))
+            : null,
+        border: const OutlineInputBorder(),
         hintText: hintText,
         hintStyle: const TextStyle(
           fontWeight: FontWeight.w500,
         ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 10),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 10),
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
       ),

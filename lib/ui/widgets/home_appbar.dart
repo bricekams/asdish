@@ -12,12 +12,15 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     AppAuthProvider apW = context.watch<AppAuthProvider>();
 
     return AppBar(
-      leading: IconButton(
-        onPressed: () {},
-        icon: const Icon(Icons.search),
+      // title: const Text("Home"),
+      leading: Container(
+        height: 40,
+        width: 40,
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/logo_1.png"))),
       ),
-      title: const Text("Home"),
-      centerTitle: true,
+      // centerTitle: true,
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 8),
@@ -35,13 +38,12 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                     context.push("/auth/signin");
                   },
                   style: ButtonStyle(
-                      shape: MaterialStatePropertyAll(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
+                    shape: MaterialStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
                       ),
-                      foregroundColor: MaterialStatePropertyAll(
-                          Theme.of(context).colorScheme.onPrimary)),
+                    ),
+                  ),
                   child: const Text(
                     "Sign in",
                     style: TextStyle(fontWeight: FontWeight.bold),

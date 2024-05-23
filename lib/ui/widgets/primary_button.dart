@@ -4,17 +4,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class PrimaryButton extends StatelessWidget {
   final IconData? icon;
   final String text;
+  final double? width;
   final void Function()? onPressed;
 
   const PrimaryButton(
-      {super.key, this.icon, required this.text, this.onPressed});
+      {super.key, this.icon, required this.text, this.onPressed, this.width});
 
   @override
   Widget build(BuildContext context) {
     return TextButton.icon(
       style: ButtonStyle(
-        padding: const MaterialStatePropertyAll(
-          EdgeInsets.symmetric(horizontal: 80),
+        padding: MaterialStatePropertyAll(
+          EdgeInsets.symmetric(horizontal: width??80),
         ),
         backgroundColor:
             MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),

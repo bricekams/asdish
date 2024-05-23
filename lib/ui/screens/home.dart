@@ -1,7 +1,7 @@
 import 'package:asdish/ui/widgets/carousel_slider.dart';
 import 'package:asdish/ui/widgets/home_appbar.dart';
-import 'package:asdish/ui/widgets/product_card.dart';
-import 'package:asdish/ui/widgets/restaurant_tile.dart';
+import 'package:asdish/ui/widgets/cards/product_card.dart';
+import 'package:asdish/ui/widgets/tiles/restaurant_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 

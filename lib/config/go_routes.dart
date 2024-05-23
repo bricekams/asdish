@@ -55,7 +55,7 @@ final GoRouter appRouter = GoRouter(
       routes: [
         GoRoute(
           path: "signin",
-          builder: (context, state) => const SignInScreen(),
+          builder: (context, state) => const OTPScreen(),
         ),
         GoRoute(
           path: "signup",
