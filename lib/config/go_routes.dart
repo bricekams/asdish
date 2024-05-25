@@ -1,5 +1,7 @@
-import 'package:asdish/data/models/product.dart';
-import 'package:asdish/ui/screens/auth/otp.dart';
+import 'package:asdish/ui/screens/auth/email_otp.dart';
+import 'package:asdish/ui/screens/auth/password/code_password_reset.dart';
+import 'package:asdish/ui/screens/auth/password/identifier_password_reset.dart';
+import 'package:asdish/ui/screens/auth/phone_otp.dart';
 import 'package:asdish/ui/screens/auth/signin.dart';
 import 'package:asdish/ui/screens/auth/signup.dart';
 import 'package:asdish/ui/screens/cart.dart';
@@ -38,10 +40,6 @@ List<GoRoute> generateRoutes(List<ShellScreen> shellScreens) {
 
 final GoRouter appRouter = GoRouter(
   routes: [
-    ShellRoute(
-      builder: (context, state, child) => Shell(body: child),
-      routes: generateRoutes(shellScreens),
-    ),
     GoRoute(
       path: "/product",
       builder: (context, state) {
@@ -51,21 +49,60 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: "/auth",
-      redirect: (context, state) => "/auth/signin",
+      builder: (_, __) => const Scaffold(),
       routes: [
         GoRoute(
           path: "signin",
-          builder: (context, state) => const OTPScreen(),
+          builder: (context, state) => const SignInScreen(),
         ),
         GoRoute(
           path: "signup",
           builder: (context, state) => const SignUpScreen(),
         ),
         GoRoute(
-          path: "otp",
-          builder: (context, state) => const OTPScreen(),
+          path: "challenges",
+          builder: (_, __) => const Scaffold(),
+          routes: [
+            GoRoute(
+              path: "phone",
+              builder: (context, state) {
+                String verificationId =
+                    (state.extra! as Map<String, dynamic>)["verificationId"];
+                int? resendToken =
+                    (state.extra! as Map<String, dynamic>)["resendToken"];
+                return OTPScreen(
+                  verificationId: verificationId,
+                  resendToken: resendToken,
+                );
+              },
+            ),
+            GoRoute(
+              path: "email",
+              builder: (context, state) => const EmailCodeScreen(),
+            ),
+          ],
         ),
+        GoRoute(
+            path: "password",
+            builder: (_, __) => const Scaffold(),
+            routes: [
+              GoRoute(
+                path: "reset-request",
+                builder: (context, state) => const IdentifierPasswordReset(),
+              ),
+              GoRoute(
+                path: "code-reset",
+                builder: (context, state) {
+                  bool phoneOTP = state.extra as bool;
+                  return CodePasswordReset(phoneOTP: phoneOTP);
+                },
+              ),
+            ])
       ],
-    )
+    ),
+    ShellRoute(
+      builder: (context, state, child) => Shell(body: child),
+      routes: generateRoutes(shellScreens),
+    ),
   ],
 );

@@ -17,7 +17,7 @@ dependencies:
   hive: ^2.2.3
   flutter_dotenv: ^5.1.0
   firebase_core: ^2.31.0
-  go_router: ^14.1.1
+  go_router: ^14.1.3
   dio: ^5.4.3+1
   google_fonts: ^6.2.1
   cached_network_image: ^3.3.1
@@ -28,6 +28,10 @@ dependencies:
   flutter_staggered_grid_view: ^0.7.0
   font_awesome_flutter: ^10.7.0
   autoscale_tabbarview: ^1.0.2
+  flutter_animate: ^4.5.0
+  flutter_overlay: ^1.0.0
+  lottie: ^3.1.2
+  loader_overlay: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -44,5 +48,7 @@ flutter:
   assets:
     - assets/images/logo_1.png
     - assets/images/logo_2.png
+    - assets/toast/error.json
+    - assets/toast/success.json
 
 

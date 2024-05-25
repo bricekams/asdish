@@ -11,7 +11,7 @@ class CartIconCount extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Center(
+          const Center(
             child: Icon(
               1 == 1
                   ? Icons.shopping_cart

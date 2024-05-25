@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:asdish/config/go_routes.dart';
 import 'package:asdish/providers/auth.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +16,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       // title: const Text("Home"),
-      leading: Container(
-        height: 40,
-        width: 40,
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/logo_1.png"))),
-      ),
+      title: const Text("Asdish"),
       // centerTitle: true,
       actions: [
         Padding(
@@ -38,7 +35,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                     context.push("/auth/signin");
                   },
                   style: ButtonStyle(
-                    shape: MaterialStatePropertyAll(
+                    shape: WidgetStatePropertyAll(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),

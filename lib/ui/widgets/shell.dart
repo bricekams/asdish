@@ -1,5 +1,5 @@
 import 'package:asdish/config/go_routes.dart';
-import 'package:asdish/providers/go_routes.dart';
+import 'package:asdish/providers/shell.dart';
 import 'package:asdish/ui/widgets/cart_counter.dart';
 import 'package:asdish/ui/widgets/notifications_counter.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +14,12 @@ class Shell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: shellScreens[context.watch<GoRoutesProvider>().current].widget,
+      body: shellScreens[context.watch<ShellIndexProvider>().current].widget,
       
       bottomNavigationBar: NavigationBar(
-        selectedIndex: context.watch<GoRoutesProvider>().current,
+        selectedIndex: context.watch<ShellIndexProvider>().current,
         onDestinationSelected: (index) {
-          context.read<GoRoutesProvider>().setCurrent = index;
+          context.read<ShellIndexProvider>().setCurrent = index;
         },
         destinations: const [
           NavigationDestination(

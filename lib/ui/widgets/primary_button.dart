@@ -5,41 +5,56 @@ class PrimaryButton extends StatelessWidget {
   final IconData? icon;
   final String text;
   final double? width;
+  final double? height;
+  final bool? loading;
   final void Function()? onPressed;
 
-  const PrimaryButton(
-      {super.key, this.icon, required this.text, this.onPressed, this.width});
+  const PrimaryButton({
+    super.key,
+    this.icon,
+    required this.text,
+    this.onPressed,
+    this.width,
+    this.height,
+    this.loading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return TextButton.icon(
-      style: ButtonStyle(
-        padding: MaterialStatePropertyAll(
-          EdgeInsets.symmetric(horizontal: width??80),
-        ),
-        backgroundColor:
-            MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
-        foregroundColor:
-            MaterialStatePropertyAll(Theme.of(context).colorScheme.onPrimary),
-        shape: MaterialStatePropertyAll(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-      ),
+    return MaterialButton(
+      color: Theme.of(context).primaryColor,
+      minWidth: width ?? 250,
+      height: height ?? 38,
+      textColor: Theme.of(context).colorScheme.onPrimary,
+      disabledColor: Theme.of(context).colorScheme.primary.withOpacity(0.5),
       onPressed: onPressed,
-      icon: icon != null
-          ? FaIcon(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (icon != null)
+            FaIcon(
               icon,
-              size: 20,
+              size: 17,
+            ),
+          if (icon != null) const SizedBox(width: 10),
+          Text(
+            text,
+            style: const TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          if (loading!) const SizedBox(width: 10),
+          if (loading!)
+            SizedBox(
+              height: 14,
+              width: 14,
+              child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
             )
-          : const SizedBox(),
-      label: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 17,
-          fontWeight: FontWeight.bold,
-        ),
+        ],
       ),
     );
   }

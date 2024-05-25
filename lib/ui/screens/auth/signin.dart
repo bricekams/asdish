@@ -1,15 +1,28 @@
+import 'dart:developer';
+
+import 'package:asdish/config/constants.dart';
+import 'package:asdish/providers/states.dart';
 import 'package:asdish/ui/widgets/primary_button.dart';
 import 'package:asdish/ui/widgets/social_auth_button.dart';
 import 'package:asdish/ui/widgets/fields/textfield.dart';
+import 'package:asdish/utils/helpers.dart';
 import 'package:autoscale_tabbarview/autoscale_tabbarview.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:provider/provider.dart';
+
+FirebaseAuth auth = FirebaseAuth.instance;
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
+
+  static TextEditingController emailController = TextEditingController();
+  static TextEditingController passwordController = TextEditingController();
+  static TextEditingController phoneController = TextEditingController();
 
   @override
   State<SignInScreen> createState() => _SignInScreenState();
@@ -31,12 +44,10 @@ class _SignInScreenState extends State<SignInScreen>
     super.dispose();
   }
 
-  static TextEditingController emailController = TextEditingController();
-  static TextEditingController passwordController = TextEditingController();
-  static TextEditingController phoneController = TextEditingController();
-  static GlobalKey<FormState> form1Key = GlobalKey();
-  static GlobalKey<FormState> form2Key = GlobalKey();
+  GlobalKey<FormState> form1Key = GlobalKey();
+  GlobalKey<FormState> form2Key = GlobalKey();
   bool showPassword = false;
+  bool sendingOTP = false;
 
   @override
   Widget build(BuildContext context) {
@@ -48,27 +59,6 @@ class _SignInScreenState extends State<SignInScreen>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Text(
-              //   "ASDISH",
-              //   style: TextStyle(
-              //     fontSize: 30,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
-              Container(
-                height: 100,
-                width: 100,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/logo_1.png"),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                "Sign in with",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
               const SocialAuthButton(
                 icon: FontAwesomeIcons.google,
                 text: "Google",
@@ -115,8 +105,10 @@ class _SignInScreenState extends State<SignInScreen>
                         CustomTextField(
                           keyboardType: TextInputType.emailAddress,
                           hintText: "Email or phone",
-                          controller: emailController,
-                          validator: (txt) {},
+                          controller: SignInScreen.emailController,
+                          validator: (txt) {
+                            return null;
+                          },
                         ),
                         const SizedBox(height: 10),
                         CustomTextField(
@@ -138,13 +130,21 @@ class _SignInScreenState extends State<SignInScreen>
                                     color: Colors.grey,
                                   ),
                           ),
-                          controller: passwordController,
+                          controller: SignInScreen.passwordController,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                context.push("/auth/signup");
+                              },
+                              child: const Text("Create account"),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                context.push("/auth/password/reset-request");
+                              },
                               child: const Text("Forget password?"),
                             ),
                           ],
@@ -161,8 +161,10 @@ class _SignInScreenState extends State<SignInScreen>
                           dropdownTextStyle: const TextStyle(
                             fontWeight: FontWeight.w500,
                           ),
-                          controller: phoneController,
+                          controller: SignInScreen.phoneController,
                           initialCountryCode: "CM",
+                          keyboardType: TextInputType.number,
+                          showDropdownIcon: false,
                           countries: const [
                             Country(
                               name: "Cameroon",
@@ -189,24 +191,82 @@ class _SignInScreenState extends State<SignInScreen>
                               borderSide:
                                   BorderSide(color: Colors.grey.shade400),
                             ),
-                            contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 10),
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 3),
                             suffixIcon: const Icon(
                               Icons.phone,
                               color: Colors.grey,
                             ),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                context.push("/auth/signup");
+                              },
+                              child: const Text("Create account"),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
                 ],
               ),
               PrimaryButton(
+                loading: sendingOTP,
                 onPressed: () {
                   if (tabController.index == 1) {
-                    context.push("/auth/otp");
+                    setState(() {
+                      sendingOTP = true;
+                    });
+                    auth.verifyPhoneNumber(
+                      phoneNumber: "+237${SignInScreen.phoneController.text}",
+                      verificationCompleted:
+                          (PhoneAuthCredential credential) async {
+                        setState(() {
+                          sendingOTP = false;
+                        });
+                        await auth.signInWithCredential(credential);
+                      },
+                      verificationFailed: (FirebaseAuthException e) async {
+                        setState(() {
+                          sendingOTP = false;
+                        });
+                        toast(context,
+                            message: e.code, state: ToastState.ERROR);
+                      },
+                      codeSent:
+                          (String verificationId, int? resendToken) async {
+                        setState(() {
+                          sendingOTP = false;
+                        });
+
+                        if (context.read<TimerProvider>().canRequestOTP) {
+                          context.read<TimerProvider>().startOTPTimer();
+                        }
+
+                        Map<String, dynamic> extra = {
+                          "verificationId": verificationId,
+                          "resendToken": resendToken,
+                        };
+
+                        context.push("/auth/challenges/phone", extra: extra);
+                      },
+                      codeAutoRetrievalTimeout: (String verificationId) {
+                        setState(() {
+                          sendingOTP = false;
+                        });
+                      },
+                    );
+
+                  } else {
+                    if (context.read<TimerProvider>().canRequestEmailCode) {
+                      context.read<TimerProvider>().startEmailTimer();
+                    }
+                    context.push("/auth/challenges/email");
                   }
                 },
                 text: "Sign in",

@@ -54,7 +54,7 @@ class ProductCard extends StatelessWidget {
                       width: 24,
                       child: IconButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
+                          backgroundColor: WidgetStatePropertyAll(
                             Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
@@ -74,7 +74,7 @@ class ProductCard extends StatelessWidget {
                       width: 24,
                       child: IconButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
+                          backgroundColor: WidgetStatePropertyAll(
                             Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),

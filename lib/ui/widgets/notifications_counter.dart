@@ -11,7 +11,7 @@ class NotificationIconCount extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-           Center(
+           const Center(
             child: Icon(3== 3? Icons.notifications:Icons.notifications_outlined),
           ),
           // if (context

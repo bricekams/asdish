@@ -131,9 +131,9 @@ class _ProductScreenState extends State<ProductScreen> {
                       backgroundColor: Colors.transparent,
                       activeBackgroundColor: Colors.transparent,
                       activeForegroundColor:
-                          Theme.of(context).colorScheme.onBackground,
+                          Theme.of(context).colorScheme.onSurface,
                       foregroundColor:
-                          Theme.of(context).colorScheme.onBackground,
+                          Theme.of(context).colorScheme.onSurface,
                     ),
                   )
                 ],
@@ -145,16 +145,16 @@ class _ProductScreenState extends State<ProductScreen> {
                   TextButton.icon(
                     icon: const Icon(Icons.add_shopping_cart,size: 17),
                     style: ButtonStyle(
-                        shape: MaterialStatePropertyAll(
+                        shape: WidgetStatePropertyAll(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
                         ),
 
-                        foregroundColor: const MaterialStatePropertyAll(Colors.white),
+                        foregroundColor: const WidgetStatePropertyAll(Colors.white),
                         backgroundColor:
-                            MaterialStateProperty.resolveWith((states) {
-                          if (states.contains(MaterialState.pressed)) {
+                            WidgetStateProperty.resolveWith((states) {
+                          if (states.contains(WidgetState.pressed)) {
                             return Theme.of(context)
                                 .colorScheme
                                 .primary

@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                     child: IconButton(
                       padding: EdgeInsets.zero,
                       style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
+                        backgroundColor: WidgetStatePropertyAll(
                             Theme.of(context).colorScheme.primary),
                       ),
                       onPressed: () {},
@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                               child: Center(
                                 child: TextButton(
                                   style: ButtonStyle(
-                                    shape: MaterialStatePropertyAll(
+                                    shape: WidgetStatePropertyAll(
                                       RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5),
                                       ),
@@ -112,7 +112,7 @@ class HomeScreen extends StatelessWidget {
                     child: IconButton(
                       padding: EdgeInsets.zero,
                       style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
+                        backgroundColor: WidgetStatePropertyAll(
                             Theme.of(context).colorScheme.primary),
                       ),
                       onPressed: () {},
@@ -142,7 +142,7 @@ class HomeScreen extends StatelessWidget {
                               child: Center(
                                 child: TextButton(
                                   style: ButtonStyle(
-                                    shape: MaterialStatePropertyAll(
+                                    shape: WidgetStatePropertyAll(
                                       RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5),
                                       ),
@@ -184,7 +184,7 @@ class HomeScreen extends StatelessWidget {
                     child: IconButton(
                       padding: EdgeInsets.zero,
                       style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
+                        backgroundColor: WidgetStatePropertyAll(
                             Theme.of(context).colorScheme.primary),
                       ),
                       onPressed: () {},
@@ -209,16 +209,16 @@ class HomeScreen extends StatelessWidget {
                   itemCount: 12,
                   itemBuilder: (context, index) {
                     return index != 11
-                        ? ProductCard()
+                        ? const ProductCard()
                         : TextButton(
                             style: ButtonStyle(
-                              shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
-                              backgroundColor: MaterialStateProperty.resolveWith(
+                              shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
+                              backgroundColor: WidgetStateProperty.resolveWith(
                                 (states) {
                                   return Theme.of(context).colorScheme.primary;
                                 },
                               ),
-                              foregroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.onPrimary),
+                              foregroundColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.onPrimary),
                             ),
                             onPressed: () {},
                             child: const Text("See more..."),

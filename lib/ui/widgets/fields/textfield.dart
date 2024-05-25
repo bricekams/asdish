@@ -19,27 +19,33 @@ class CustomTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final double? width;
   final double? height;
+  final bool border;
+  final bool autoFocus;
+  final void Function(String text)? onChanged;
 
-  const CustomTextField(
-      {super.key,
-      this.suffixIcon,
-      this.prefixIcon,
-      this.hintText,
-      this.label,
-      this.readOnly,
-      this.initialValue,
-      required this.controller,
-      this.onTap,
-      this.onTapOutside,
-      this.validator,
-      this.textInputAction,
-      this.onFieldSubmitted,
-      this.obscureText,
-      this.autoValidateMode,
-      this.maxLength,
-      this.keyboardType,
-      this.width,
-      this.height});
+  const CustomTextField({
+    super.key,
+    this.suffixIcon,
+    this.prefixIcon,
+    this.hintText,
+    this.label,
+    this.readOnly,
+    this.initialValue,
+    required this.controller,
+    this.onTap,
+    this.onTapOutside,
+    this.validator,
+    this.textInputAction,
+    this.onFieldSubmitted,
+    this.obscureText,
+    this.autoValidateMode,
+    this.maxLength,
+    this.keyboardType,
+    this.width,
+    this.height,
+    this.border = true,
+    this.autoFocus = false, this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +53,15 @@ class CustomTextField extends StatelessWidget {
       onTap: onTap,
       maxLength: maxLength,
       validator: validator,
+
       onTapOutside: onTapOutside,
       initialValue: initialValue,
       textInputAction: textInputAction,
       onFieldSubmitted: onFieldSubmitted,
       autovalidateMode: autoValidateMode,
       keyboardType: keyboardType,
+      autofocus: autoFocus,
+      onChanged: onChanged,
       controller: controller,
       readOnly: readOnly ?? false,
       obscureText: obscureText ?? false,
@@ -64,7 +73,7 @@ class CustomTextField extends StatelessWidget {
         constraints: width != null && height != null
             ? BoxConstraints.loose(Size(width!, height!))
             : null,
-        border: const OutlineInputBorder(),
+        border: border ? const OutlineInputBorder() : null,
         hintText: hintText,
         hintStyle: const TextStyle(
           fontWeight: FontWeight.w500,

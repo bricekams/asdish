@@ -39,7 +39,7 @@ class _ProductCarouselState extends State<ProductCarousel> {
                 });
               }
             ),
-            items: [
+            items: const [
               SizedBox(),
               SizedBox(),
               SizedBox(),
