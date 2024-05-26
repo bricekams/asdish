@@ -1,5 +1,5 @@
+import 'dart:async';
 import 'dart:developer';
-
 import 'package:asdish/config/constants.dart';
 import 'package:asdish/ui/widgets/screens/otp.dart';
 import 'package:asdish/utils/helpers.dart';
@@ -12,11 +12,14 @@ FirebaseAuth auth = FirebaseAuth.instance;
 class OTPScreen extends StatefulWidget {
   final String verificationId;
   final int? resendToken;
+  final FutureOr<void> Function(PhoneAuthCredential credential)
+      verificationCompleted;
 
   const OTPScreen({
     super.key,
     required this.verificationId,
     this.resendToken,
+    required this.verificationCompleted,
   });
 
   @override
@@ -41,19 +44,26 @@ class _OTPScreenState extends State<OTPScreen> {
           verificationId: widget.verificationId,
           smsCode: code,
         );
-        auth.signInWithCredential(credential).then((onValue) {
-          context.replace("/");
-        }).catchError((error) {
-          if (error is FirebaseAuthException) {
-            toast(context, message: error.code, state: ToastState.ERROR);
-          } else {
-            log(error);
-          }
-        }).whenComplete(() {
+        try {
+          await auth.signInWithCredential(credential);
+
+          await widget.verificationCompleted(credential);
           setState(() {
             verifying = false;
           });
-        });
+          if (context.mounted) context.go("/");
+        } catch (e) {
+          setState(() {
+            verifying = false;
+          });
+          if (e is FirebaseAuthException) {
+            if (context.mounted) {
+              toast(context, message: e.code, state: ToastState.ERROR);
+            }
+          } else {
+            log(e.toString());
+          }
+        }
       },
       canChangePhone: true,
     );

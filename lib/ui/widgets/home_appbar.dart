@@ -23,7 +23,9 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.only(right: 8),
           child: context.watch<AppAuthProvider>().isSignedIn == true
               ? IconButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    context.read<AppAuthProvider>().signOut();
+                  },
                   icon: CircleAvatar(
                     backgroundColor: Colors.grey.shade300,
                     foregroundImage: const CachedNetworkImageProvider(

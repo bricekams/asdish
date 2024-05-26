@@ -62,3 +62,7 @@ bool isValidPassword(String password) {
           r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$+!%?])[A-Za-z\d@#+$!%?]{8,}$')
       .hasMatch(password);
 }
+
+bool isDigitsOnly(String phone) {
+  return RegExp(r'^\d+$').hasMatch(phone);
+}

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:asdish/ui/screens/auth/email_otp.dart';
 import 'package:asdish/ui/screens/auth/password/code_password_reset.dart';
 import 'package:asdish/ui/screens/auth/password/identifier_password_reset.dart';
@@ -9,6 +11,7 @@ import 'package:asdish/ui/screens/home.dart';
 import 'package:asdish/ui/screens/notifications.dart';
 import 'package:asdish/ui/screens/orders.dart';
 import 'package:asdish/ui/screens/product_details.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:asdish/ui/widgets/shell.dart';
@@ -70,9 +73,13 @@ final GoRouter appRouter = GoRouter(
                     (state.extra! as Map<String, dynamic>)["verificationId"];
                 int? resendToken =
                     (state.extra! as Map<String, dynamic>)["resendToken"];
+                FutureOr<void> Function(PhoneAuthCredential credential) verificationCompleted =
+                (state.extra! as Map<String, dynamic>)["verificationCompleted"];
+
                 return OTPScreen(
                   verificationId: verificationId,
                   resendToken: resendToken,
+                  verificationCompleted: verificationCompleted,
                 );
               },
             ),
